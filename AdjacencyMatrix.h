@@ -1,7 +1,0 @@
-#include <cstdlib>
-
-
-class AdjacencyMatrix{
-	
-
-};
