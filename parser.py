@@ -27,6 +27,7 @@ def parse(sysargv):
 				node_ls.append(linelist[1])
 	f.close()
 
+	# filter out rare occurences?
 
 	# write to file
 	print('Writing to file: \"{}\"...'.format(outfilename))
