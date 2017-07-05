@@ -3,7 +3,7 @@ from PeriodCounter import OnlinePeriodCounter
 
 if __name__ == '__main__':
 	# Create counter
-	start = 10
+	start = -1
 	window = 50
 	counter = OnlinePeriodCounter(window, start)
 
@@ -11,15 +11,9 @@ if __name__ == '__main__':
 	f = open(sys.argv[1])
 
 	# Feed file lines into counter
-	max_nodes = 300
-	count = 0
-
 	for line in f:
 		node = line.strip('\n')
 		counter.addElement(node)
 
-		count += 1
-		#if count == max_nodes:
-		#	break
-
+	# Print result
 	print(counter.count)

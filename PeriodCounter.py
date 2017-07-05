@@ -3,7 +3,7 @@ import math
 from scipy import stats
 
 class PeriodCounter:
-	def __init__(self, window=20, start=0):
+	def __init__(self, window=20, start=-1):
 		self.counter = OnlinePeriodCounter(start, window)
 	
 	def count(self, seq):
@@ -13,13 +13,14 @@ class PeriodCounter:
 		return counter.count
 
 class OnlinePeriodCounter:
-	def __init__(self, window, start=0):
+	def __init__(self, window, start=-1):
 		self.window = window
-		self.left = start
+		self.start = start
 
 		self.seq = []
 		self.graph = []
 		self.top = 1
+		self.left = max(0, start)
 		self.elements = 0
 		self.count_array = np.zeros(self.window, dtype='int')
 		self.count = 0
@@ -33,7 +34,7 @@ class OnlinePeriodCounter:
 			return
 
 		# add element to seq
-		if len(self.seq) < self.left+self.window:
+		if self.start < 0 or len(self.seq) <= self.window:
 			self.seq.append(e)
 
 		# add comparison to each row
@@ -54,17 +55,17 @@ class OnlinePeriodCounter:
 					self.count_array[j] += 1
 
 			# throw away completed row
-			self.topShift()
+			if self.start < 0:
+				self.diagShift()
+			else:
+				self.topShift()
 
 		# update elements and count
 		m = stats.mode(self.count_array)
-		self.count = m[0][0]
-
-	# Move window down
-	def topShift(self, dist=1):
-		for t in range(dist):
-			self.graph.pop(0)
-		self.top += dist
+		if self.start < 0:
+			self.count = 2*m[0][0]
+		else:
+			self.count = m[0][0]
 
 	# Proimity filter
 	def proxFilter(self, arr):
@@ -75,8 +76,12 @@ class OnlinePeriodCounter:
 				if not(left or right):
 					arr[i] = False
 
+	# Move window down
+	def topShift(self, dist=1):
+		for t in range(dist):
+			self.graph.pop(0)
+		self.top += dist
 
-	"""
 	# Move window left
 	def leftShift(self, dist=1):
 		for t in range(dist):
@@ -100,4 +105,3 @@ class OnlinePeriodCounter:
 
 		self.left += 1
 		self.top += 1
-	"""
