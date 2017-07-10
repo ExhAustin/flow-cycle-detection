@@ -62,6 +62,7 @@ class OnlinePeriodCounter:
 
 		# update count
 		m = stats.mode(self.count_array)
+		#self.count_array.fill(m[0][0])
 		if self.start < 0:
 			self.count = 2*m[0][0]
 		else:
