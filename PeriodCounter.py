@@ -60,20 +60,18 @@ class OnlinePeriodCounter:
 			else:
 				self.topShift()
 
-		"""# denoising
+		# denoising
 		mean = np.mean(self.count_array)
 		for i in range(self.window):
 			d = self.count_array[i] - mean
-			self.count_array[i] -= min(0.5*d ,(d / self.window)**2)
-		"""
+			if abs(d) > 1:
+				self.count_array[i] -= (d-1)
 
 		# update count
-		m = stats.mode(self.count_array.astype(int))
-		mode = m[0][0]
 		if self.start < 0:
-			self.count = 2*mode
+			self.count = int(round(2*mean))
 		else:
-			self.count = mode
+			self.count = int(round(mean))
 
 	# Proimity filter
 	def proxFilter(self, arr):
