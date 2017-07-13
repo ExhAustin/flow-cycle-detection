@@ -65,13 +65,19 @@ class OnlinePeriodCounter:
 		for i in range(self.window):
 			d = self.count_array[i] - mean
 			if abs(d) > 1:
-				self.count_array[i] -= (d-1)
+				self.count_array[i] -= d
+
+		# mode
+		#m = stats.mode(np.round(self.count_array).astype(int))
+		#mode = m[0][0]
 
 		# update count
 		if self.start < 0:
 			self.count = int(round(2*mean))
+			#self.count = 2*mode
 		else:
 			self.count = int(round(mean))
+			#self.count = mode
 
 	# Proimity filter
 	def proxFilter(self, arr):
