@@ -3,8 +3,8 @@ import math
 from scipy import stats
 
 class PeriodCounter:
-	def __init__(self, window=20, start=-1):
-		self.counter = OnlinePeriodCounter(start, window)
+	def __init__(self, window=20, margin=-1):
+		self.counter = OnlinePeriodCounter(margin, window)
 	
 	def count(self, seq):
 		for e in seq:
@@ -13,14 +13,14 @@ class PeriodCounter:
 		return counter.count
 
 class OnlinePeriodCounter:
-	def __init__(self, window, start=-1):
+	def __init__(self, window, margin=-1):
 		self.window = window
-		self.start = start
+		self.margin = margin
 
 		self.seq = []
 		self.graph = []
 		self.top = 1
-		self.left = max(0, start)
+		self.left = max(0, margin)
 		self.elements = 0
 		self.count_array = np.zeros(self.window)
 		self.count = 0
@@ -29,12 +29,12 @@ class OnlinePeriodCounter:
 	def addElement(self, e):
 		self.elements += 1
 
-		# play dead until start
+		# play dead until end of margin
 		if self.elements <= self.left:
 			return
 
 		# add element to seq
-		if self.start < 0 or len(self.seq) <= self.window:
+		if self.margin < 0 or len(self.seq) <= self.window:
 			self.seq.append(e)
 
 		# add comparison to each row
@@ -55,7 +55,7 @@ class OnlinePeriodCounter:
 					self.count_array[j] += 1
 
 			# throw away completed row
-			if self.start < 0:
+			if self.margin < 0:
 				self.diagShift()
 			else:
 				self.topShift()
@@ -72,7 +72,7 @@ class OnlinePeriodCounter:
 		#mode = m[0][0]
 
 		# update count
-		if self.start < 0:
+		if self.margin < 0:
 			self.count = int(round(2*mean))
 			#self.count = 2*mode
 		else:
