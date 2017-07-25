@@ -4,7 +4,7 @@ from PeriodCounter import OnlinePeriodCounter
 if __name__ == '__main__':
 	# Create counter
 	start = -1
-	window = 50
+	window = 10
 	counter = OnlinePeriodCounter(window, start)
 
 	# Open file
