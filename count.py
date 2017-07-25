@@ -3,9 +3,9 @@ from PeriodCounter import OnlinePeriodCounter
 
 if __name__ == '__main__':
 	# Create counter
-	start = -1
 	window = 10
-	counter = OnlinePeriodCounter(window, start)
+	margin = -1
+	counter = OnlinePeriodCounter(window, margin)
 
 	# Open file
 	f = open(sys.argv[1])

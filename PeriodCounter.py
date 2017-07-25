@@ -3,7 +3,7 @@ import math
 from scipy import stats
 
 class PeriodCounter:
-	def __init__(self, window=20, margin=-1):
+	def __init__(self, window=10, margin=-1):
 		self.counter = OnlinePeriodCounter(margin, window)
 	
 	def count(self, seq):
