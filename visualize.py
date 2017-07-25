@@ -6,7 +6,7 @@ import math
 
 if __name__ == '__main__':
 	# visualization parameters
-	max_depth = 300
+	max_depth = 50
 
 	# parse sequence
 	seq = []
@@ -19,7 +19,7 @@ if __name__ == '__main__':
 		max_depth = len(seq) - 1
 
 	graph_0 = np.zeros([max_depth+1, max_depth+1])
-	for x in range(1,max_depth+1):
+	for x in range(max_depth, 0, -1):
 		for y in range(max_depth+1-x):
 			graph_0[x][y] = (seq[y + x] == seq[y])
 
