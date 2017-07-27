@@ -9,14 +9,13 @@
 
 ## File list
 **PeriodCounter.py**
-Primary module for counting periodic occurences, with countains two classes
-- OnlinePeriodCounter: Main functionality of the counter
-  - __init__(window, margin): initializer, counts diagonally if margin < 0
-  - addElement(e): member function, parses new element from the sequence and updates count
-  - count: member variable, current estimate of number of loops in sequence
-- PeriodCounter: Counts entire sequence
-  - __init__(window, margin): initializer, counts diagonally if margin < 0
-  - count(seq): member function, calls OnlinePeriodCounter to count number of loops in seq
+Primary module for counting periodic occurences
+- PeriodCounter: class, main functionality of the counter
+  - `__init__(window, margin)`: initializer, counts diagonally if margin < 0
+  - `reset(window, margin)`: member function, resets counter, can optionally assign new window and margin
+  - `get_count()`: member function, gets current estimate of number of loops in sequence
+  - `countSeq(seq)`: member function, counts number of loops in seq
+  - `addElement(e)`: member function, parses new element from the sequence and updates count
 
 **count.py**  
 Example program of counting TM5 log files  
