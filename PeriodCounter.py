@@ -4,28 +4,37 @@ from scipy import stats
 
 class PeriodCounter:
 	def __init__(self, window=10, margin=-1):
-		self.counter = OnlinePeriodCounter(margin, window)
-	
-	def count(self, seq):
-		for e in seq:
-			counter.addElement(e)
-		
-		return counter.count
-
-class OnlinePeriodCounter:
-	def __init__(self, window, margin=-1):
 		self.window = window
 		self.margin = margin
+		self.reset()
+
+	# Reset
+	def reset(self, window=None, margin=None):
+		if window is not None:
+			self.window = window
+		if margin is not None:
+			self.margin = margin
 
 		self.seq = []
 		self.graph = []
 		self.top = 1
-		self.left = max(0, margin)
+		self.left = max(0, self.margin)
 		self.elements = 0
 		self.count_array = np.zeros(self.window)
 		self.count = 0
 
-	# Parse two new elements
+	# Return count
+	def get_count(self):
+		return self.count
+
+	# Count an entire sequence
+	def countSeq(self, seq):
+		for e in seq:
+			self.addElement(e)
+
+		return self.count
+
+	# Parse new element
 	def addElement(self, e):
 		self.elements += 1
 
@@ -60,7 +69,7 @@ class OnlinePeriodCounter:
 			else:
 				self.topShift()
 
-		# denoising
+		# mean filtering
 		mean = np.mean(self.count_array)
 		for i in range(self.window):
 			d = self.count_array[i] - mean
@@ -94,8 +103,8 @@ class OnlinePeriodCounter:
 			self.graph.pop(0)
 		self.top += dist
 
-	# Move window left
-	def leftShift(self, dist=1):
+	# Move window right
+	def rightShift(self, dist=1):
 		for t in range(dist):
 			self.graph.pop(-1)
 			self.seq.pop(0)
@@ -105,7 +114,7 @@ class OnlinePeriodCounter:
 			row[-dist:] = [0]*dist
 		self.left += dist
 
-	# Move window diagonally (left-down)
+	# Move window diagonally (right-down)
 	def diagShift(self):
 		self.graph.pop(0)
 		self.graph.pop(-1)

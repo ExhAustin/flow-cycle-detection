@@ -1,11 +1,11 @@
 import sys
-from PeriodCounter import OnlinePeriodCounter
+from PeriodCounter import PeriodCounter
 
 if __name__ == '__main__':
 	# Create counter
 	window = 10
 	margin = -1
-	counter = OnlinePeriodCounter(window, margin)
+	counter = PeriodCounter(window, margin)
 
 	# Open file
 	f = open(sys.argv[1])
@@ -16,4 +16,4 @@ if __name__ == '__main__':
 		counter.addElement(node)
 
 	# Print result
-	print(counter.count)
+	print(counter.get_count())
