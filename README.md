@@ -8,8 +8,8 @@
 - Application: Counting loops in execution of flow chart with information from log files
 
 ## File list
-**PeriodCounter.py**
-Primary module for counting periodic occurences
+**PeriodCounter.py**  
+Primary module for counting periodic occurences  
 - PeriodCounter: class, main functionality of the counter
   - `__init__(window, margin)`: initializer, counts diagonally if margin < 0
   - `reset(window, margin)`: member function, resets counter, can optionally assign new window and margin
@@ -30,12 +30,12 @@ Visualizes the shift chart of first n elements of a sequence file
 Requires matplotlib  
 Usage: `$python visualize.py <log_file_path>`  
 
+**requirements.txt**  
+Python library list (output file of pip freeze)  
+
 **datasets/**  
 Contains sequence data  
 
 **random_noise/**  
 Contains code related to creating and analyzing random sequences  
 Used in the development process  
-
-**requirements.txt**  
-Python library list (output file of pip freeze)  
