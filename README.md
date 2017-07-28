@@ -1,7 +1,7 @@
 # Periodic Sequence Loop Counter
 - Author: Austin Wang
 - Year: 2017
-- Requirements: Numpy (Matplotlib for visulization) (See requirements.txt for full details)
+- Requirements: Numpy (Matplotlib for visualization) (See requirements.txt for full details)
 
 ## Introduction
 - Counts cycle occurences in periodic sequence regardless of noise
