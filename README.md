@@ -18,11 +18,11 @@ Primary module for counting periodic occurences
   - `addElement(e)`: member function, parses new element from the sequence and updates count
 
 **count.py**  
-Example program of counting TM5 log files  
+Example program of counting log files  
 Usage: `$python count.py <parsed_log_file_path>`  
 
 **preprocess.py**  
-Preprocesses a TM5 log file, leaving only names of executed nodes and errors  
+Preprocesses a log file, leaving only names of executed nodes and errors  
 Usage: `$python preprocess.py <log_file_path> <output_file_path>`  
 
 **visualize.py**  
